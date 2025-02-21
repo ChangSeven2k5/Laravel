@@ -9,9 +9,9 @@
 </head>
 <body>
     <div class="container">
-        <form action="" method="POST" class="frm">
+        <form action="{{ route('signup.store') }}" method="POST" class="frm">
             @csrf
-            <h1 class="heading">Điền thông tin</h1>
+            <h1 class="heading">Form</h1>
             <div class="form-group">                                                                           
                 <label>Name</label>
                 <input type="text" class="form-control" name="name">             
@@ -42,7 +42,7 @@
                     <div class="alter-danger">
                         <ul>
                             @foreach ($errors -> all () as $error)
-                            <p>{{$error}}</p>
+                            <p class="error">{{$error}}</p>
                                 
                             @endforeach
                         </ul>
@@ -54,13 +54,16 @@
                 <button type="submit" class="btn-primary">OK</button>
             </div>
             <div class="display-infor">
-                @if(isset($user))
-                    <p>Your Name: {{$user['name']}} </p>
-                    <p>Your Age: {{$user['age']}} </p>
-                    <p>Your Date: {{$user['date']}} </p>
-                    <p>Your Phone: {{$user['phone']}} </p>
-                    <p>Your Web: {{$user['web']}} </p>
-                    <p>Your Address: {{$user['address']}} </p>
+                @if(isset($students))
+                    @foreach ($students as $student)
+                    <li>Your Name: {{$student['name']}} </li>
+                    <li>Your Age: {{$student['age']}} </li>
+                    <li>Your Date: {{$student['date']}} </li>
+                    <li>Your Phone: {{$student['phone']}} </li>
+                    <li>Your Web: {{$student['web']}} </li>
+                    <li>Your Address: {{$student['address']}} </li>
+                    <br>
+                    @endforeach
                 @endif
             </div>
         </form>

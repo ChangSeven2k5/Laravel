@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\signupController;
 use App\Http\Controllers\SumController;
-// use App\Http\Controllers\PostController;
+use App\Http\Controllers\APIController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,7 +47,7 @@ Route::post('/calculateSum',[SumController::class,'getNumber']);
 // Route::resource('posts/create', PostController::class);
 // Route::get('posts/create', PostController::class);
 
-Route::get('/signup', function () {
-    return view('signup');
-});
-Route::post('/signup', [signupController::class,'displayInfor']);
+Route::get('/signup', [signupController::class, 'index'])->name('signup.index');
+Route::post('/signup', [signupController::class, 'displayInfor'])->name('signup.store');
+
+Route::get('/api', [APIController::class,'getData']);
