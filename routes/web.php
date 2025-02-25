@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\signupController;
 use App\Http\Controllers\SumController;
 use App\Http\Controllers\APIController;
+use App\Http\Controllers\ProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -51,3 +52,5 @@ Route::get('/signup', [signupController::class, 'index'])->name('signup.index');
 Route::post('/signup', [signupController::class, 'displayInfor'])->name('signup.store');
 
 Route::get('/api', [APIController::class,'getData']);
+
+Route::resource('/products', ProductController::class);
