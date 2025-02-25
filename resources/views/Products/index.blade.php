@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh sách sản phẩm</title>
+    <title>Products List</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container mt-5">
-        <h2>Danh sách sản phẩm</h2>
-        <a href="{{ route('products.create') }}" class="btn btn-success mb-3">Thêm sản phẩm</a>
+        <h2>Products List</h2>
+        <a href="{{ route('products.create') }}" class="btn btn-success mb-3">Add Product</a>
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
         @endif
@@ -17,10 +17,10 @@
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Tên</th>
-                    <th>Hình ảnh</th>
-                    <th>Ngày tạo</th>
-                    <th>Hành động</th>
+                    <th>Name</th>
+                    <th>Image</th>
+                    <th>Create Date</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -28,14 +28,16 @@
                     <tr>
                         <td>{{ $product['id'] }}</td>
                         <td>{{ $product['name'] }}</td>
-                        <td>{{ $product['avatar'] }}</td>
+                        <td>
+                            <img src="{{ $product['avatar'] }}" alt="Avater" width="70" height="70">
+                        </td>
                         <td>{{ $product['createdAt'] }}</td>
                         <td>
-                            <a href="{{ route('products.edit', $product['id']) }}" class="btn btn-warning btn-sm">Sửa</a>
+                            <a href="{{ route('products.edit', $product['id']) }}" class="btn btn-warning btn-sm">Edit</a>
                             <form action="{{ route('products.destroy', $product['id']) }}" method="POST" style="display:inline;">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Xóa sản phẩm này?')">Xóa</button>
+                                <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Xóa sản phẩm này?')">Delete</button>
                             </form>
                         </td>
                     </tr>
