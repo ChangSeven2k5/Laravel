@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\TaoBangController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\signupController;
 use App\Http\Controllers\SumController;
@@ -26,31 +25,6 @@ Route::get('/calculateSum', function () {
 Route::post('/calculateSum',[SumController::class,'getNumber']);
 
 
-// Route::get('/', function() {
-//     return 'Hello PNV26';
-// });
-
-// Route::get('/', [PNVController::class,'index']);
-
-// Route::group(['prefix' => 'tutorial'], function()
-// {
-//     Route::get('/aws', function() {
-//         echo "aws tutorial";
-//     });
-//     Route::get('/jira', function() {
-//         echo "jira tutorial";
-//     });
-//     Route::get('/testing', function() {
-//         echo "testing tutorial";
-//     });
-// }
-// );
-
-// Route::resource('posts', PostController::class);
-// Route::get('/index', [PostController::class]);
-// Route::resource('posts/create', PostController::class);
-// Route::get('posts/create', PostController::class);
-
 Route::get('/signup', [signupController::class, 'index'])->name('signup.index');
 Route::post('/signup', [signupController::class, 'displayInfor'])->name('signup.store');
 
@@ -58,30 +32,10 @@ Route::get('/api', [APIController::class,'getData']);
 
 Route::resource('/products', ProductController::class);
 
+//Split Layout
 Route::get('/index', [PageController::class,'getIndex']);
-
-Route::get('/loai-san-pham',[PageController::class,'getLoaiSp']);
-
+// Route::get('/loai-san-pham',[PageController::class,'getLoaiSp']);
 Route::get('/index', [ShopController::class,'getIndex']);
 
-Route::get('/database', function () {
-    Schema::create('loaisanpham', function($table) {
-        $table->increments('id');
-        $table->string('name', 200);
 
-    });
-    echo 'Đã thực hiện khởi tạo bảng thành công';
-});
 
-Route::get('/database', function () {
-    Schema::create('Products', function($table) {
-        $table->increments('id');
-        $table->string('name', 200);
-        $table->integer('price');
-        $table->text('image');
-
-    });
-    echo 'Đã thực hiện khởi tạo bảng thành công';
-});
-
-Route::get('/database', [TaoBangController::class, 'createTable']);
