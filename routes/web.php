@@ -1,10 +1,13 @@
 <?php
 
+use App\Http\Controllers\TaoBangController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\signupController;
 use App\Http\Controllers\SumController;
 use App\Http\Controllers\APIController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\ShopController;  
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,3 +57,31 @@ Route::post('/signup', [signupController::class, 'displayInfor'])->name('signup.
 Route::get('/api', [APIController::class,'getData']);
 
 Route::resource('/products', ProductController::class);
+
+Route::get('/index', [PageController::class,'getIndex']);
+
+Route::get('/loai-san-pham',[PageController::class,'getLoaiSp']);
+
+Route::get('/index', [ShopController::class,'getIndex']);
+
+Route::get('/database', function () {
+    Schema::create('loaisanpham', function($table) {
+        $table->increments('id');
+        $table->string('name', 200);
+
+    });
+    echo 'Đã thực hiện khởi tạo bảng thành công';
+});
+
+Route::get('/database', function () {
+    Schema::create('Products', function($table) {
+        $table->increments('id');
+        $table->string('name', 200);
+        $table->integer('price');
+        $table->text('image');
+
+    });
+    echo 'Đã thực hiện khởi tạo bảng thành công';
+});
+
+Route::get('/database', [TaoBangController::class, 'createTable']);

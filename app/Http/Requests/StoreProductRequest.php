@@ -25,7 +25,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'name'=> 'required|string|max:255',
-            'avatar'=> 'nullable|url',
+            'avatar'=> 'required|url',
             'createdAt'=> 'required|date',
         ];
     }
