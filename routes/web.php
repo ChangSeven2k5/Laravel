@@ -8,6 +8,7 @@ use App\Http\Controllers\APIController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ShopController;  
+use App\Http\Controllers\CreateTableController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -25,31 +26,6 @@ Route::get('/calculateSum', function () {
 
 Route::post('/calculateSum',[SumController::class,'getNumber']);
 
-
-// Route::get('/', function() {
-//     return 'Hello PNV26';
-// });
-
-// Route::get('/', [PNVController::class,'index']);
-
-// Route::group(['prefix' => 'tutorial'], function()
-// {
-//     Route::get('/aws', function() {
-//         echo "aws tutorial";
-//     });
-//     Route::get('/jira', function() {
-//         echo "jira tutorial";
-//     });
-//     Route::get('/testing', function() {
-//         echo "testing tutorial";
-//     });
-// }
-// );
-
-// Route::resource('posts', PostController::class);
-// Route::get('/index', [PostController::class]);
-// Route::resource('posts/create', PostController::class);
-// Route::get('posts/create', PostController::class);
 
 Route::get('/signup', [signupController::class, 'index'])->name('signup.index');
 Route::post('/signup', [signupController::class, 'displayInfor'])->name('signup.store');
@@ -85,3 +61,5 @@ Route::get('/database', function () {
 });
 
 Route::get('/database', [TaoBangController::class, 'createTable']);
+
+Route::get('/create_table', [CreateTableController::class,'createAllTables']);
