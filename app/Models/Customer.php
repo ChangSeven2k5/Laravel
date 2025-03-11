@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class CustomerModel extends Model
+class Customer extends Model
 {
     use HasFactory;
 
@@ -17,6 +17,6 @@ class CustomerModel extends Model
 
     public function bills()
     {
-        return $this->hasMany(BillsModel::class, 'id_customer','id');
+        return $this->hasMany(Bill::class, 'id_customer','id');
     }
 }

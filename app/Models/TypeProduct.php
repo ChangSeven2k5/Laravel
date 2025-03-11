@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class TypeProductsModel extends Model
+class TypeProduct extends Model
 {
     use HasFactory;
 
@@ -17,6 +17,6 @@ class TypeProductsModel extends Model
 
     public function products()
     {
-        return $this->hasMany(ProductsModel::class, 'id_type','id');
+        return $this->hasMany(Product::class, 'id_type','id');
     }
 }

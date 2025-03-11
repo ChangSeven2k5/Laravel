@@ -5,13 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SlideModel extends Model
+class Slide extends Model
 {
     use HasFactory;
     protected $table = 'slide';
-    protected $primaryKey = 'id';
-    protected $fillable = [
-        'link', 'image'
-    ];
+    // protected $primaryKey = 'id';
+    protected $fillable = ['link', 'image'];
 
 }

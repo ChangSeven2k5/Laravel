@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductsModel extends Model
+class Product extends Model
 {
     use HasFactory;
 
@@ -17,11 +17,11 @@ class ProductsModel extends Model
 
     public function typeProduct()
     {
-        return $this->belongsTo(TypeProductsModel::class, 'id_type','id');
+        return $this->belongsTo(TypeProduct::class, 'id_type','id');
     }
 
     public function billDetails()
     {
-        return $this->hasMany(BillDetailModel::class, 'id_product','id');
+        return $this->hasMany(BillDetail::class, 'id_product','id');
     }
 }

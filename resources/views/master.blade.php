@@ -23,10 +23,10 @@
 		@yield('content')
 	</div>
 	
-	{{-- @include('footer') --}}
+	@include('footer')
 
 	<!-- include js files -->
-	{{-- @include('script') --}}
+	@include('script')
 </body>
 </html>
 

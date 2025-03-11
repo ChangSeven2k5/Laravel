@@ -262,6 +262,7 @@ class CreateTableController extends Controller
             $table->text('content')->comment('nội dung');
             $table->string('image', 100)->comment('hình');
             $table->timestamps();
+            $table->softDeletes();
         });
 
         // pages
