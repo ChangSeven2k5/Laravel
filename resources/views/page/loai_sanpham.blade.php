@@ -72,7 +72,8 @@
                                 </div>	
                             @endforeach	
                         </div>	
-                    </div> <!-- .beta-products-list -->	
+                    </div> 
+                    <!-- .beta-products-list -->	
                         
                     <div class="space50">&nbsp;</div>	
                         
