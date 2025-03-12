@@ -34,10 +34,6 @@ Route::get('/api', [APIController::class,'getData']);
 
 Route::resource('/products', ProductController::class);
 
-// Route::get('/index', [PageController::class,'getIndex']);
-
-Route::get('/loai-san-pham',[PageController::class,'getLoaiSp']);
-
 // Route::get('/index', [ShopController::class,'getIndex']);
 
 Route::get('/database', function () {
@@ -64,4 +60,7 @@ Route::get('/database', [TaoBangController::class, 'createTable']);
 
 Route::get('/create_table', [CreateTableController::class,'createAllTables']);
 
+// Cake Shop
+Route::get('/loai-san-pham',[PageController::class,'getLoaiSp']);
 Route::get('/trangchu', [PageController::class,'getIndex']);
+Route::get('/type/{id}', [PageController::class, 'getLoaiSp']);
