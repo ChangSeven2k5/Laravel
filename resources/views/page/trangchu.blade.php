@@ -43,6 +43,7 @@
                         <h4>New Products</h4>	
                         <div class="beta-products-details">	
                             <p class="pull-left">{{count($new_product)}} styles found</p>	
+                            
                             <div class="clearfix"></div>	
                         </div>	
             
@@ -137,6 +138,7 @@
                                 </div>	
                             @endforeach	
                         </div>	
+                        {{-- Phân trang --}}
                         <div class="row">{{$promotion_product->links("pagination::bootstrap-4")}}</div>	
         
                     </div> <!-- .beta-products-list -->	

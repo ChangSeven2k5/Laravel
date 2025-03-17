@@ -7,7 +7,7 @@
         </div>
         <div class="pull-right">
             <div class="beta-breadcrumb font-large">
-                <a href="index.html">Home</a> / <span>Sản phẩm</span>
+                <a href="{{route('homepage')}}">Home</a> / <span>Sản phẩm</span>
             </div>
         </div>
         <div class="clearfix"></div>
@@ -44,7 +44,7 @@
                                 <div class="col-sm-4">	
                                     <div class="single-item">	
                                         <div class="single-item-header">	
-                                            <a href=""><img width="200" height="200" src="/source/images/product/{{$sp->image}}" alt=""></a>	
+                                            <a href="detail/{{$sp->id}}"><img width="200" height="200" src="/source/images/product/{{$sp->image}}" alt=""></a>	
                                         </div>	
                                         <div class="single-item-body">	
                                             <p class="single-item-title">{{$sp->name}}</p>	

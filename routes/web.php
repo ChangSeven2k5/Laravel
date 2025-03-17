@@ -60,7 +60,27 @@ Route::get('/database', [TaoBangController::class, 'createTable']);
 
 Route::get('/create_table', [CreateTableController::class,'createAllTables']);
 
-// Cake Shop
+// Cake Shop Trang chu
+Route::get('/trangchu', [PageController::class,'getIndex'])->name('homepage');
 Route::get('/loai-san-pham',[PageController::class,'getLoaiSp']);
-Route::get('/trangchu', [PageController::class,'getIndex']);
 Route::get('/type/{id}', [PageController::class, 'getLoaiSp']);
+
+//Trang chi tiết
+Route::get('/detail/{id}', [PageController::class,'getDetail']);
+//Trang admin
+Route::get('/admin', [PageController::class, 'getIndexAdmin']);
+//Add-product
+Route::get('/admin-add-form', [PageController::class, 'getAdminAdd'])->name('add-product');
+// PostAdminAdd
+Route::post('/admin-add-form', [PageController::class, 'postAdminAdd']);
+// Edit product
+Route::get('/admin-edit-form/{id}', [PageController::class, 'getAdminEdit']);
+//Post Edit product
+Route::post('/admin-edit', [PageController::class, 'postAdminEdit']);
+// post Delete
+Route::post('/admin-delete/{id}', [PageController::class, 'postAdminDelete']);
+
+//Trang liên hệ
+Route::get('lien_he',[PageController::class, 'getLienhe'])->name('contract');			
+//Trang about
+Route::get('gioi_thieu',[PageController::class, 'getAbout'])->name('about');			
