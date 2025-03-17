@@ -43,7 +43,7 @@
                         <h4>New Products</h4>	
                         <div class="beta-products-details">	
                             <p class="pull-left">{{count($new_product)}} styles found</p>	
-                            
+                            <p class="pull-left">styles found</p>
                             <div class="clearfix"></div>	
                         </div>	
             
@@ -91,7 +91,7 @@
                                 </div>	
                             @endforeach	
                         </div>	
-                        <div class="row">{{$new_product->links("pagination::bootstrap-4")}}</div>	
+                        {{-- <div class="row">{{$new_product->links("pagination::bootstrap-4")}}</div>	 --}}
                     </div> <!-- .beta-products-list -->	
         
                 <div class="space50">&nbsp;</div>	
@@ -107,7 +107,7 @@
                                 <div class="col-sm-3">	
                                     <div class="single-item">	
                                         <div class="single-item-header">	
-                                            <a href=""><img width="200" height="200" src="/source/images/product/{{$km->image}}" alt=""></a>	
+                                            <a href="detail/{{$km->id}}"><img width="200" height="200" src="/source/images/product/{{$km->image}}" alt=""></a>	
                                         </div>	
                                         <div class="single-item-body">	
                                             <p class="single-item-title">{{$km->name}}</p>	
