@@ -18,6 +18,9 @@
     {{-- <a href="{{route('export')}}" class="btn btn-primary">
       Xuất ra PDF
     </a> --}}
+    <a href="#" class="btn btn-primary">
+      Xuất ra PDF
+    </a>
   </div>
   <table id="table_admin_product" class="table table-striped display">
     <thead>
@@ -47,7 +50,8 @@
         <td>{{$product->unit}}</td>
         <td>{{$product->new}}</td>
         <td>
-          <a href='admin-edit-form/{{$product->id}}' type="submit" class="btn btn-warning" style="width:80px;">Edit</a>
+          <a href='admin-edit-form/{{$product->id}}' type="submit" class="btn btn-warning" style="width:80px; margin-bottom: 7px;">Edit</a>
+          
           <form role="form" action="admin-delete/{{$product->id}}" method="post">
             @csrf
             <button name="edit" type="submit" class="btn btn-danger" style="width:80px;">Delete</button>

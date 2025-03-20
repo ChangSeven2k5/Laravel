@@ -50,6 +50,7 @@
                         <div class="row">	
                             @foreach($new_product as $new)	
                                 <div class="col-sm-3">	
+                                    {{-- col-sm-2 sản phẩm 6 thành 1 hàng --}}
                                     <div class="single-item">	
                                         <div class="single-item-header">	
                                             <a href="detail/{{$new->id}}"><img width="200" height="200"	
@@ -57,7 +58,7 @@
                                         </div>	
                                         @if($new->promotion_price==!0)	
                                             <div class="ribbon-wrapper">	
-                                                <div class="ribbon sale">Sale</div>	
+                                                <div class="ribbon sale">Seven</div>	
                                             </div>	
                                         @endif	
                                         <div class="single-item-body">	
@@ -91,7 +92,7 @@
                                 </div>	
                             @endforeach	
                         </div>	
-                        {{-- <div class="row">{{$new_product->links("pagination::bootstrap-4")}}</div>	 --}}
+                        <div class="row">{{$new_product->links("pagination::bootstrap-4")}}</div>	
                     </div> <!-- .beta-products-list -->	
         
                 <div class="space50">&nbsp;</div>	
@@ -113,9 +114,12 @@
                                             <p class="single-item-title">{{$km->name}}</p>	
                                             <p class="single-item-price" style="text-align:left;font-size: 15px;">	
                                                 @if($km->promotion_price==0)	
-                                                    <span class="flash-sale">{{number_format($km->unit_price)}} Đồng</span>	
+                                                    <span class="flash-sale">{{number_format($km->unit_price)}} Đồng</span>
+                                                    	{{--để định dạng số với dấu phân cách hàng nghìn, số thập phân, v.v.  --}}
+                                                        {{-- flash-sale: Sử dụng CSS để làm nổi bật giá gốc khi sản phẩm không có khuyến mãi. --}}
                                                 @else	
                                                     <span class="flash-del">{{number_format($km->unit_price)}} Đồng</span>	
+                                                    {{--  CSS giúp hiển thị giá cũ với hiệu ứng gạch ngang. --}}
                                                     <span class="flash-sale">{{number_format($km->promotion_price)}} Đồng</span>	
                                                 @endif	
                                             </p>	

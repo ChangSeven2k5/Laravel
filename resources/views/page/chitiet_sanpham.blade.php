@@ -86,7 +86,7 @@
                   <div class="card-body">
                     <form method="post" action="/comment/{{$sanpham->id}}">
                       @csrf
-                      <div class="form-group">
+                      <div class="form-group" style="width: 66%">
                         <textarea class="form-control" name="comment" required></textarea>
                       </div>
                       <button type="submit" class="beta-btn primary">Bình luận</button>
@@ -122,7 +122,7 @@
                 </div>
                 @if($sp->promotion_price==!0)
                 <div class="ribbon-wrapper">
-                  <div class="ribbon sale">Sale</div>
+                  <div class="ribbon sale">Seven</div>
                 </div>
                 @endif
                 <div class="single-item-body">

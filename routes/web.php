@@ -62,6 +62,9 @@ Route::get('/create_table', [CreateTableController::class,'createAllTables']);
 
 // Cake Shop Trang chu
 Route::get('/trangchu', [PageController::class,'getIndex'])->name('homepage');
+// Search
+Route::get('/search', [PageController::class,'getSearchProduct'])->name('search');
+
 Route::get('/loai-san-pham',[PageController::class,'getLoaiSp']);
 Route::get('/type/{id}', [PageController::class, 'getLoaiSp']);
 

@@ -8,6 +8,7 @@ use App\Models\Product;
 use App\Models\Slide;
 use App\Models\TypeProduct;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
@@ -18,6 +19,16 @@ class PageController extends Controller
         $new_product = Product::where("new","1")->paginate(4);
         $promotion_product = Product::where("promotion_price",">",0)->paginate(8);
         return view("page.trangchu", compact("slide","new_product","promotion_product"));
+    }
+
+    // Search product
+    public function getSearchProduct(Request $request) 
+    {
+
+        $keyword = $request->input("search");
+        $products = Product::where("name", "LIKE","%{$keyword}%")->paginate(8);
+
+        return view('page.search', compact('products', 'keyword'));
     }
 
     public function getLoaiSP($type)
@@ -44,6 +55,22 @@ class PageController extends Controller
         return view('page.chitiet_sanpham', compact('sanpham','splienquan','new_product','best_seller','comments'));
 
     }
+
+    public function postComment(Request $request, $id)
+    {
+        $request->validate([
+            'comment' => 'required|max:500',
+        ]);
+
+        // Tạo bình luận mới
+        $comment = new Comment();
+        $comment->id_product = $id;
+        $comment->username = Auth::user()->name ?? 'Khách'; // Lấy tên người dùng hoặc "Khách"
+        $comment->comment = $request->comment;
+        $comment->save();
+
+        return back()->with('success', 'Bình luận đã được thêm!');
+    }
     public function getLienhe(){		
         return view('page.lienhe');		
     }		
@@ -67,22 +94,23 @@ class PageController extends Controller
 
     public function postAdminAdd(Request $request) 
     {
-        $product = new Product();
+        $product = new Product(); //Khởi tạo một đối tượng
+
         if($request->hasFile('inputImage')){
             $file = $request->file('inputImage');
-            $fileName = $file->getClientOriginalName('inputImage');
-            $file->move('source/images/product', $fileName);
+            $fileName = $file->getClientOriginalName('inputImage'); //Lấy tên gốc của file ảnh 
+            $file->move('source/images/product', $fileName); //Di chuyển file vào thư mục
         }
         $file_name = null;
         if($request->file('inputImage')){
-            $file_name = $request->file('inputImage')->getClientOriginalName();
+            $file_name = $request->file('inputImage')->getClientOriginalName(); //Lưu tên ảnh vào biến 
         }
         $product->name = $request->inputName;
         $product->image = $file_name;
         $product->description = $request->inputDescription;
         $product->unit_price = $request->inputPrice;
         $product->promotion_price = $request->inputPromotionPrice;
-        $product->unit = $request->inputUnit;
+        $product->unit = $request->inputUnit; //đơn vị
         $product->new = $request->inputNew;
         $product->id_type = $request->inputType;
         $product->save();
