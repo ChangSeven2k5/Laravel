@@ -1,15 +1,8 @@
 <?php
 
-use App\Http\Controllers\TaoBangController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\signupController;
-use App\Http\Controllers\SumController;
-use App\Http\Controllers\APIController;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\UserController;  
-use App\Http\Controllers\ShopController;  
-use App\Http\Controllers\CreateTableController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,46 +14,6 @@ use App\Http\Controllers\CreateTableController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/calculateSum', function () {
-    return view('calculateSum',);
-});
-
-Route::post('/calculateSum',[SumController::class,'getNumber']);
-
-
-Route::get('/signup', [signupController::class, 'index'])->name('signup.index');
-Route::post('/signup', [signupController::class, 'displayInfor'])->name('signup.store');
-
-Route::get('/api', [APIController::class,'getData']);
-
-Route::resource('/products', ProductController::class);
-
-// Route::get('/index', [ShopController::class,'getIndex']);
-
-Route::get('/database', function () {
-    Schema::create('loaisanpham', function($table) {
-        $table->increments('id');
-        $table->string('name', 200);
-
-    });
-    echo 'Đã thực hiện khởi tạo bảng thành công';
-});
-
-Route::get('/database', function () {
-    Schema::create('Products', function($table) {
-        $table->increments('id');
-        $table->string('name', 200);
-        $table->integer('price');
-        $table->text('image');
-
-    });
-    echo 'Đã thực hiện khởi tạo bảng thành công';
-});
-
-Route::get('/database', [TaoBangController::class, 'createTable']);
-
-Route::get('/create_table', [CreateTableController::class,'createAllTables']);
 
 // ============================Cake Shop Trang chu===========================
 Route::get('/trangchu', [PageController::class,'getIndex'])->name('homepage');
@@ -91,26 +44,13 @@ Route::get('lien_he',[PageController::class, 'getLienhe'])->name('contract');
 Route::get('gioi_thieu',[PageController::class, 'getAbout'])->name('about');			
 
 // Loin/
-// Route::get('/login',[PageController::class,'getLogin'])->name('login');
-// Route::post('/login',[PageController::class,'postLogin']);
 Route::get('/login', function () {
         return view('users.login');
     })->name('login');
 
 Route::post('/login',[UserController::class,'Login']);
-
 Route::get('/logout',[UserController::class,'Logout'])->name('logout');
-    
-//Register
-// Route::get('/register',[PageController::class,'getRegister'])->name('register');
-// Route::post('/register',[PageController::class,'postRegister']);
-
 Route::get('/register', function () {
-    return view('users.register');
+    return view('users.register'); 
 })->name('register');
-
 Route::post('/register',[UserController::class,'Register']);
-    
-//=====Cart
-Route::get('add-to-cart/{id}', [PageController::class, 'getAddToCart'])->name('themgiohang');											
-Route::get('del-cart/{id}', [PageController::class, 'getDelItemCart'])->name('xoagiohang');											

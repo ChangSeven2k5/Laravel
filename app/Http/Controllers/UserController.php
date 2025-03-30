@@ -3,36 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 class UserController extends Controller
 {
-    public function Login(Request $request)
-    {
-        $login = [
-            'email' => $request->input('email'),
-            'password' => $request->input('pw')
-        ];
+    public function Login(LoginRequest $request)
+{
+    $credentials = $request->only('email', 'password');
 
-        if (Auth::attempt($login)) {
-            $user = Auth::user();
-        //     Session::put('user', $user);
-        // Lưu vào session dưới dạng mảng thay vì object
-        Session::put('user', [
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email
-        ]);
-
-        // Lưu session trước khi redirect
+    if (Auth::attempt($credentials)) {
+        $user = Auth::user();
+        Session::put('user', $user);
         Session::save();
-            echo '<script>alert("Đăng nhập thành công.");window.location.assign("trangchu");</script>';
-        } else {
-            echo '<script>alert("Đăng nhập thất bại.");window.location.assign("login");</script>';
-        }
+        return redirect()->route('trangchu')->with('success', 'Đăng nhập thành công.');
+    } else {
+        return redirect()->back()->with('error', 'Email hoặc mật khẩu không đúng.');
     }
+}
 
     public function Logout()
     {
@@ -41,15 +30,9 @@ class UserController extends Controller
         return redirect('/trangchu');
     }
 
-        public function Register(Request $request)
+        public function Register(RegisterRequest $request)
     {
-        $input = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-            'c_password' => 'required|same:password'
-        ]);
-
+        $input = $request->validated();
         $input['password'] = bcrypt($input['password']);
         User::create($input);
 

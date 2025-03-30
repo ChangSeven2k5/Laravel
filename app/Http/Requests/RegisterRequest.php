@@ -26,7 +26,8 @@ class RegisterRequest extends FormRequest
         return [
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required|min:6',
+            'c_password' => 'required|same:password',
         ];
     }
 
@@ -49,12 +50,4 @@ class RegisterRequest extends FormRequest
         ];
     }
 
-    // protected function prepareForValidation()
-    // {
-    //     if ($this->has('password')) {
-    //         $this->merge([
-    //             'password' => Hash::make($this->password),
-    //         ]);
-    //     }
-    // }
 }
