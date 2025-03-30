@@ -86,37 +86,37 @@ class PageController extends Controller
         return view('page.about');		
     }		
         
-    // Login
-    public function getLogin()
-    {
-        return view('page.login');
-    }
-    public function postLogin(Request $request)
-    {
-        $credentials = $request->only('email','password');
+    // // Login
+    // public function getLogin()
+    // {
+    //     return view('page.login');
+    // }
+    // public function postLogin(Request $request)
+    // {
+    //     $credentials = $request->only('email','password');
 
-        if(Auth::attempt($credentials)) {
-            return redirect('/trangchu');
-        }
+    //     if(Auth::attempt($credentials)) {
+    //         return redirect('/trangchu');
+    //     }
 
-        return back()->withErrors(['email' => 'Email hoặc mật khẩu không đúng.'])->withInput();
-    }
-    // Register
-    public function getRegister()
-    {
-        return view('page.register');
-    }
+    //     return back()->withErrors(['email' => 'Email hoặc mật khẩu không đúng.'])->withInput();
+    // }
+    // // Register
+    // public function getRegister()
+    // {
+    //     return view('page.register');
+    // }
 
-    public function postRegister(Request $request)
-    {
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
-        $user->save();
+    // public function postRegister(Request $request)
+    // {
+    //     $user = new User();
+    //     $user->name = $request->name;
+    //     $user->email = $request->email;
+    //     $user->password = Hash::make($request->password);
+    //     $user->save();
 
-        return $this->getLogin();
-    }
+    //     return $this->getLogin();
+    // }
     //================================================ADMIN======================================
     //Admin
     public function getIndexAdmin()
@@ -195,27 +195,49 @@ class PageController extends Controller
     }
 
     //================================================SEND EMAIL======================================
-    public function sendOrderEmail(Request $req, $cart) 
-    {
-        $message = [
-            'type' => 'Email thông báo đặt hàng thành công',
-            'thanks' => 'Cảm ơn ' . $req->name . ' đã đặt hàng.',
-            'cart' => $cart,
-            'content' => 'Đơn hàng sẽ tới tay bạn sớm nhất có thể.'
-        ];
+    // public function sendOrderEmail(Request $req, $cart) 
+    // {
+    //     $message = [
+    //         'type' => 'Email thông báo đặt hàng thành công',
+    //         'thanks' => 'Cảm ơn ' . $req->name . ' đã đặt hàng.',
+    //         'cart' => $cart,
+    //         'content' => 'Đơn hàng sẽ tới tay bạn sớm nhất có thể.'
+    //     ];
 
-        SendEmail::dispatch($message, $req->email)->delay(now()->addMinute(1));
+    //     SendEmail::dispatch($message, $req->email)->delay(now()->addMinute(1));
+    // }
+
+    //================================================Cart======================================																				
+    public function getAddToCart(Request $req, $id)																						
+    {																						
+        if (Session::has('user')) {																						
+            if (Product::find($id)) {																						
+                $product = Product::find($id);																						
+                $oldCart = Session('cart') ? Session::get('cart') : null;																						
+                $cart = new Cart($oldCart);																						
+                $cart->add($product, $id);																						
+                $req->session()->put('cart', $cart);																						
+                return redirect()->back();																						
+            } else {																						
+                return '<script>alert("Không tìm thấy sản phẩm này.");window.location.assign("/");</script>';																						
+            }																						
+        } else {																						
+            return '<script>alert("Vui lòng đăng nhập để sử dụng chức năng này.");window.location.assign("/login");</script>';																						
+        }																					
+   }		
+   public function getDelItemCart($id)
+{
+    $oldCart = Session::has('cart') ? Session::get('cart') : null;
+    $cart = new Cart($oldCart);
+    $cart->removeItem($id);
+    
+    if (count($cart->items) > 0 && Session::has('cart')) {
+        Session::put('cart', $cart);
+    } else {
+        Session::forget('cart');
     }
-
-    //================================================Cart======================================
-    public function getAddToCart(Request $req, $id){	
-        $product = Product::find($id);	
-        $oldCart = Session('cart')?Session::get('cart'):null;	
-        $cart = new Cart($oldCart);	
-        $cart->add($product,$id);	
-        $req->session()->put('cart', $cart);	
-        return redirect()->back();	
-    }	
-
-
+    
+    return redirect()->back();
+}																				                                                                                                                                                                                
+    
 }

@@ -13,7 +13,7 @@
                 @if(isset($data['cart']))
                     @foreach($data['cart']->items as $product)
                         <div class="media">
-                            <img width="35%" src="source/image/product/{{ $product['item']['image'] }}" alt="" class="pull-left">
+                            <img width="35%" src="sources/image/product/{{ $product['item']['image'] }}" alt="" class="pull-left">
                             <div class="media-body">
                                 <p class="font-large">{{ $product['item']['name'] }}</p>
                                 <span class="color-gray your-order-info">Số lượng: {{ $product['qty'] }}</span>

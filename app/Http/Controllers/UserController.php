@@ -40,15 +40,9 @@ class UserController extends Controller
         return redirect('/trangchu');
     }
 
-        public function Register(RegisterRequest $request)
+    public function Register(RegisterRequest $request)
     {
-        $input = $request->validate([
-            'name' => 'required|string',
-            'email' => 'required|email|unique:users',
-            'password' => 'required',
-            'c_password' => 'required|same:password'
-        ]);
-
+        $input = $request->validated();
         $input['password'] = bcrypt($input['password']);
         User::create($input);
 

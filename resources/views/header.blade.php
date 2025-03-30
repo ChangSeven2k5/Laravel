@@ -29,38 +29,39 @@
             <div class="pull-right beta-components space-left ov">							
                 <div class="space10">&nbsp;</div>						
                                         
-                <div class="beta-comp">						
-                @if(Session::has('cart'))						
-                    <div class="cart">					
-                        <div class="beta-select"><i class="fa fa-shopping-cart"></i> Giỏ hàng (@if(Session::has('cart')){{Session('cart')->totalQty}}@else Trong @endif) <i class="fa fa-chevron-down"></i></div>				
-                        <div class="beta-dropdown cart-body">				
-                                        
-                            @foreach($product_cart as $product)			
-                                <div class="cart-item" id="cart-item{{$product['item']['id']}}">			
-                                    <a class="cart-item-delete" value="{{$product['item']['id']}}" soluong="{{$product['qty']}}"><i class="fa fa-times"></i></a>		
-                                    <div class="media">		
-                                        <a class="pull-left" href="#"><img src="source/image/product/{{$product['item']['image']}}" alt=""></a>	
-                                        <div class="media-body">	
-                                            <span class="cart-item-title">{{$product['item']['name']}}</span>
-                                            <span class="cart-item-amount">{{$product['item']['qty']}}*<span>{{$product['item']['unit_price']}}</span></span>
-                                        </div>	
-                                    </div>		
-                                </div>			
-                            @endforeach			
-                                        
-                            <div class="cart-caption">			
-                                <div class="cart-total text-right">Tổng tiền: <span class="cart-total-value">{{number_format(Session('cart')->totalPrice)}} đồng</span></div>		
-                                <div class="clearfix"></div>		
-                                        
-                                <div class="center">		
-                                    <div class="space10">&nbsp;</div>	
-                                    <a href="" class="beta-btn primary text-center">Đặt hàng <i class="fa fa-chevron-right"></i></a>	
-                                </div>		
-                            </div>			
-                        </div>				
-                    </div> <!-- .cart -->					
-                @endif						
-                </div>						
+                <div class="beta-comp">										
+                    @if(Session::has('cart'))										
+                        <div class="cart">									
+                            <div class="beta-select"><i class="fa fa-shopping-cart"></i> Giỏ hàng (@if(Session::has('cart')){{Session('cart')->totalQty}}@else Trong @endif) <i class="fa fa-chevron-down"></i></div>								
+                            <div class="beta-dropdown cart-body">								
+                                                            
+                                @foreach($product_cart as $product)							
+                                    <div class="cart-item" id="cart-item{{$product['item']['id']}}">						
+                                    <a class="cart-item-delete" href="{{route('xoagiohang',$product['item']['id'])}}" value="{{$product['item']['id']}}" soluong="{{$product['qty']}}"><i class="fa fa-times"></i></a>						
+                                    <div class="media">						
+                                        <a class="pull-left" href="#"><img src="source/images/product/{{$product['item']['image']}}" alt=""></a>					
+                                        <div class="media-body">					
+                                            <span class="cart-item-title">{{$product['item']['name']}}</span>				
+                                            <span class="cart-item-amount">{{$product['qty']}}*<span id="dongia{{$product['item']['id']}}" value="@if($product['item']['promotion_price']==0){{($product['item']['unit_price'])}}@else {{($product['item']['promotion_price'])}}@endif">@if($product['item']['promotion_price']==0){{number_format($product['item']['unit_price'])}}@else {{number_format($product['item']['promotion_price'])}}@endif</span></span>				
+                                        </div>					
+                                    </div>						
+                                </div>							
+                                @endforeach							
+                                                            
+                                <div class="cart-caption">							
+                                        <div class="cart-total text-right">Tổng tiền: <span class="cart-total-value" value="@if(Session::has('cart')){{($totalPrice)}}@else 0 @endif">@if(Session::has('cart')){{number_format($totalPrice)}}@else 0 @endif đồng</span></div>					
+                                    <div class="clearfix"></div>						
+                                                            
+                                    <div class="center">						
+                                        <div class="space10">&nbsp;</div>					
+                                        <a href="" class="beta-btn primary text-center">Đặt hàng <i class="fa fa-chevron-right"></i></a>					
+                                    </div>						
+                                </div>							
+                            </div>								
+                        </div> <!-- .cart -->									
+                    @endif										
+                    </div>										
+                                            
             </div>							
             <div class="clearfix"></div>							
         </div> <!-- .container -->								

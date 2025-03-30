@@ -58,10 +58,7 @@
                                             </p>	
                                         </div>	
                                         <div class="single-item-caption">	
-                                            {{-- <a class="add-to-cart pull-left" href="{{route('themgiohang',$sp->id)}}">
-                                                <i class="fa fa-shopping-cart"></i>
-                                            </a>	 --}}
-                                            <a class="add-to-cart pull-left" href="haha">
+                                            <a class="add-to-cart pull-left" href="{{route('themgiohang',$sp->id)}}">
                                                 <i class="fa fa-shopping-cart"></i>
                                             </a>	
                                             <a class="add-to-cart pull-left" href="#"><i class="fa fa-heart"></i></a>	
