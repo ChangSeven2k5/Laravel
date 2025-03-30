@@ -7,8 +7,6 @@ use Illuminate\Support\Facades\Hash;
 class RegisterRequest extends FormRequest
 {
     /**
-     * Determine if the user is authorized to make this request.
-     *
      * @return bool
      */
     public function authorize()
@@ -24,9 +22,10 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|string|max:255',
+            'name' => 'required|string',
             'email' => 'required|email|unique:users,email',
-            'password' => 'required|min:6|confirmed',
+            'password' => 'required',
+            'c_password' => 'required|same:password'
         ];
     }
 
@@ -38,23 +37,16 @@ class RegisterRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => 'Họ và tên không được để trống.',
-            'name.string' => 'Họ và tên phải là chữ.',
-            'name.max' => 'Họ và tên tối đa 255 ký tự.',
-            'email.required' => 'Email không được để trống.',
-            'email.email' => 'Email không hợp lệ.',
-            'email.unique' => 'Email đã được sử dụng.',
-            'password.required' => 'Mật khẩu không được để trống.',
-            'password.min' => 'Mật khẩu phải có ít nhất 6 ký tự.',
+           'name.required' => 'Vui lòng nhập họ và tên.',
+            'name.string' => 'Họ và tên chỉ được chứa ký tự chữ.',
+            'email.required' => 'Vui lòng nhập email.',
+            'email.email' => 'Email không đúng định dạng.',
+            'email.unique' => 'Email này đã được đăng ký, vui lòng chọn email khác.',
+            'password.required' => 'Vui lòng nhập mật khẩu.',
+            'c_password.required' => 'Vui lòng nhập lại mật khẩu.',
+            'c_password.same' => 'Mật khẩu nhập lại không khớp.',
         ];
     }
 
-    // protected function prepareForValidation()
-    // {
-    //     if ($this->has('password')) {
-    //         $this->merge([
-    //             'password' => Hash::make($this->password),
-    //         ]);
-    //     }
-    // }
+   
 }

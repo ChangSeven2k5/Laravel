@@ -1,30 +1,29 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Request\RegisterRequest;
 use App\Models\User;
+use App\Http\Requests\LoginRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 class UserController extends Controller
 {
-    public function Login(Request $request)
+    public function Login(LoginRequest $request)
     {
         $login = [
             'email' => $request->input('email'),
-            'password' => $request->input('pw')
+            'password' => $request->input('password')
         ];
 
         if (Auth::attempt($login)) {
             $user = Auth::user();
-        //     Session::put('user', $user);
-        // Lưu vào session dưới dạng mảng thay vì object
-        Session::put('user', [
-            'id' => $user->id,
-            'name' => $user->name,
-            'email' => $user->email
-        ]);
+            Session::put('user', [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email
+            ]);
 
         // Lưu session trước khi redirect
         Session::save();
@@ -41,7 +40,7 @@ class UserController extends Controller
         return redirect('/trangchu');
     }
 
-        public function Register(Request $request)
+        public function Register(RegisterRequest $request)
     {
         $input = $request->validate([
             'name' => 'required|string',
