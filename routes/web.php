@@ -7,8 +7,10 @@ use App\Http\Controllers\SumController;
 use App\Http\Controllers\APIController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\UserController;  
 use App\Http\Controllers\ShopController;  
 use App\Http\Controllers\CreateTableController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,12 +62,12 @@ Route::get('/database', [TaoBangController::class, 'createTable']);
 
 Route::get('/create_table', [CreateTableController::class,'createAllTables']);
 
-// Cake Shop Trang chu
+// ============================Cake Shop Trang chu===========================
 Route::get('/trangchu', [PageController::class,'getIndex'])->name('homepage');
 // Search
 Route::get('/search', [PageController::class,'getSearchProduct'])->name('search');
 
-Route::get('/loai-san-pham',[PageController::class,'getLoaiSp']);
+Route::get('/loai-san-pham',[PageController::class,'getLoaiSp'])->name('loaisanpham');
 Route::get('/type/{id}', [PageController::class, 'getLoaiSp']);
 
 //Trang chi tiết
@@ -87,3 +89,28 @@ Route::post('/admin-delete/{id}', [PageController::class, 'postAdminDelete']);
 Route::get('lien_he',[PageController::class, 'getLienhe'])->name('contract');			
 //Trang about
 Route::get('gioi_thieu',[PageController::class, 'getAbout'])->name('about');			
+
+// Loin/
+// Route::get('/login',[PageController::class,'getLogin'])->name('login');
+// Route::post('/login',[PageController::class,'postLogin']);
+Route::get('/login', function () {
+        return view('users.login');
+    })->name('login');
+
+Route::post('/login',[UserController::class,'Login']);
+
+Route::get('/logout',[UserController::class,'Logout'])->name('logout');
+    
+//Register
+// Route::get('/register',[PageController::class,'getRegister'])->name('register');
+// Route::post('/register',[PageController::class,'postRegister']);
+
+Route::get('/register', function () {
+    return view('users.register');
+})->name('register');
+
+Route::post('/register',[UserController::class,'Register']);
+    
+//=====Cart
+Route::get('add-to-cart/{id}', [PageController::class, 'getAddToCart'])->name('themgiohang');											
+Route::get('del-cart/{id}', [PageController::class, 'getDelItemCart'])->name('xoagiohang');											

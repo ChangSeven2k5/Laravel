@@ -6,9 +6,16 @@ use App\Models\BillDetail;
 use App\Models\Comment;
 use App\Models\Product;
 use App\Models\Slide;
+use App\Models\User;
+use App\Models\Users;
+use App\Models\Cart;
 use App\Models\TypeProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Facade;
+use App\Http\Controllers\SendEmail;
 
 class PageController extends Controller
 {
@@ -79,7 +86,38 @@ class PageController extends Controller
         return view('page.about');		
     }		
         
+    // Login
+    public function getLogin()
+    {
+        return view('page.login');
+    }
+    public function postLogin(Request $request)
+    {
+        $credentials = $request->only('email','password');
 
+        if(Auth::attempt($credentials)) {
+            return redirect('/trangchu');
+        }
+
+        return back()->withErrors(['email' => 'Email hoặc mật khẩu không đúng.'])->withInput();
+    }
+    // Register
+    public function getRegister()
+    {
+        return view('page.register');
+    }
+
+    public function postRegister(Request $request)
+    {
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
+        return $this->getLogin();
+    }
+    //================================================ADMIN======================================
     //Admin
     public function getIndexAdmin()
     {
@@ -155,4 +193,29 @@ class PageController extends Controller
         $product->delete();
         return $this->getIndexAdmin();
     }
+
+    //================================================SEND EMAIL======================================
+    public function sendOrderEmail(Request $req, $cart) 
+    {
+        $message = [
+            'type' => 'Email thông báo đặt hàng thành công',
+            'thanks' => 'Cảm ơn ' . $req->name . ' đã đặt hàng.',
+            'cart' => $cart,
+            'content' => 'Đơn hàng sẽ tới tay bạn sớm nhất có thể.'
+        ];
+
+        SendEmail::dispatch($message, $req->email)->delay(now()->addMinute(1));
+    }
+
+    //================================================Cart======================================
+    public function getAddToCart(Request $req, $id){	
+        $product = Product::find($id);	
+        $oldCart = Session('cart')?Session::get('cart'):null;	
+        $cart = new Cart($oldCart);	
+        $cart->add($product,$id);	
+        $req->session()->put('cart', $cart);	
+        return redirect()->back();	
+    }	
+
+
 }
