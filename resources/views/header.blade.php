@@ -9,10 +9,7 @@
             </div>							
             <div class="pull-right auto-width-right">														
                 <ul class="top-details menu-beta l-inline">														
-                    @if(Session::has('user'))	
-                        @php
-                            $user = Session::get('user');
-                        @endphp													
+                    @if(Session::has('user'))												
                         <li><a href="logout"><i class="fa fa-user"></i>{{ $user['name']}}</a></li>														
                     @else														
                         <li><a href="register">Đăng kí</a></li>														

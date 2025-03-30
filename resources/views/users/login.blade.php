@@ -31,7 +31,7 @@
           </div>
           <div class="form-block">
             <label for="pw">Password*</label>
-            <input type="password" id="pw" name="pw" required>
+            <input type="password" id="pw" name="password" required>
           </div>
           <div class="form-block">
             <button type="submit" class="btn btn-primary">Login</button>
