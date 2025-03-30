@@ -11,9 +11,13 @@ class UserController extends Controller
 {
     public function Login(LoginRequest $request)
 {
-    $credentials = $request->only('email', 'password');
+    // $credentials = $request->only('email', 'password');
+    $login = [
+        'email'=>$request->input('email'),
+        'password'=>$request->input('password')
+    ];
 
-    if (Auth::attempt($credentials)) {
+    if (Auth::attempt($login)) {
         $user = Auth::user();
         Session::put('user', $user);
         Session::save();

@@ -13,7 +13,7 @@
                         @php
                             $user = Session::get('user');
                         @endphp													
-                        <li><a href="logout"><i class="fa fa-user"></i>{{ $user['name'] }}</a></li>														
+                        <li><a href="logout"><i class="fa fa-user"></i>{{ $user['name']}}</a></li>														
                     @else														
                         <li><a href="register">Đăng kí</a></li>														
                         <li><a href="login">Đăng nhập</a></li>														
